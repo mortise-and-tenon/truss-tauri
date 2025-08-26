@@ -3,6 +3,8 @@
     "zh": "中文",
     "en": "English"
   },
+  "app_name": "Truss",
+  "app_desc": "Truss tauri 应用",
   "corp_name": "Truss Web",
   "copyright": "版权所有"
 }
