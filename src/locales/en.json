@@ -6,5 +6,46 @@
   "app_name": "Truss",
   "app_desc": "Truss tauri App",
   "corp_name": "Truss Web",
-  "copyright": "Copyright"
+  "copyright": "Copyright",
+  "menu": {
+    "home": "Home",
+    "translation": "Translation",
+    "setting": "Setting"
+  },
+  "setting": {
+    "general": "Generatl Settings",
+    "about": "About Us",
+    "check_update": "Check for Updates",
+    "update_now": "Update found",
+    "update_no": "No updates available",
+    "update_retry": "Try again later",
+    "log": "Release Notes",
+    "view": "View",
+    "details": "Detail",
+    "website": "Official Website",
+    "feedback": "Feedback",
+    "feedback_action": "Feedback"
+  },
+  "general": {
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "language": "Language",
+    "tray": "Tray",
+    "close_action": "Minimize to tray when closed"
+  },
+  "themes": {
+    "theme": "Theme",
+    "light": "Light",
+    "cupcake": "Cupcake",
+    "emerald": "Emerald",
+    "valentine": "Valentine",
+    "lofi": "Lofi",
+    "pastel": "Pastel",
+    "dark": "Dark",
+    "forest": "Forest",
+    "dracula": "Dracula",
+    "night": "Night",
+    "coffee": "Coffee",
+    "dim": "Dim"
+  }
 }

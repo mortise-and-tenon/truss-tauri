@@ -1,14 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ReactNode, useContext, useState } from "react";
-import {
-  MdOutlineSettings,
-  MdOutlineHome,
-  MdOutlineTranslate,
-} from "react-icons/md";
-import { I18nContext } from "../utils/providers/I18nProvider";
-import React from "react";
+import { ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { MdOutlineHome, MdOutlineSettings } from "react-icons/md";
 
 /**
  * 菜单定义
@@ -71,7 +66,7 @@ export default function Menu({
 }) {
   const router = useRouter();
 
-  const { i18n } = useContext(I18nContext);
+  const { t } = useTranslation();
 
   /**
    * 选中的菜单
@@ -125,7 +120,7 @@ export default function Menu({
               className={`tooltip tooltip-right ${
                 item.name === focusMenu && "menu-active"
               }`}
-              data-tip={i18n(item.i18nName)}
+              data-tip={t(item.i18nName)}
             >
               {item.icon}
             </a>
@@ -144,7 +139,7 @@ export default function Menu({
               className={`tooltip tooltip-right ${
                 item.name === focusExtraMenu && "menu-active"
               }`}
-              data-tip={i18n(item.i18nName)}
+              data-tip={t(item.i18nName)}
             >
               {item.icon}
             </a>

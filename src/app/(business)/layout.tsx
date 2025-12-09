@@ -1,7 +1,7 @@
 "use client";
 import { getCurrentWindow, Window } from "@tauri-apps/api/window";
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   VscChromeClose,
   VscChromeMaximize,
@@ -10,13 +10,16 @@ import {
 } from "react-icons/vsc";
 import Menu from "../components/Menu";
 import ThemeChanger from "../components/ThemeSwitcher";
-import { I18nContext } from "../utils/providers/I18nProvider";
+import "../globals.css";
+import { GlobalContext } from "../utils/providers/GlobalProvider";
 
 export default function HomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { appConfig } = useContext(GlobalContext);
+
   /**
    * 窗体实例
    */
@@ -52,15 +55,19 @@ export default function HomeLayout({
   };
 
   /**
-   * 点击关闭
+   * 点击关闭/隐藏
    */
   const onClickClose = () => {
     if (appWindow != null) {
-      appWindow.close();
+      if (appConfig.showTray) {
+        appWindow.hide();
+      } else {
+        appWindow.close();
+      }
     }
   };
 
-  const { i18n } = useContext(I18nContext);
+  const { t } = useTranslation();
 
   /**
    * 选中的菜单名称
@@ -85,9 +92,9 @@ export default function HomeLayout({
       >
         <div className="flex items-center">
           <div className="w-14 flex justify-center items-center">
-            <Image src="/truss.png" width={30} height={30} alt="logo" />
+            <img src="/truss.png" width={30} height={30} alt="logo" />
           </div>
-          <span className="font-black">{i18n(menuTitle)}</span>
+          <span className="font-black">{t(menuTitle)}</span>
         </div>
         <div className="h-full flex items-center">
           <ThemeChanger />
@@ -114,17 +121,16 @@ export default function HomeLayout({
           <button
             title="close"
             onClick={onClickClose}
-            className="h-full hover:bg-primary/20 hover:text-primary 
+            className="h-full hover:bg-error hover:text-white 
                     transition-all duration-200 px-2"
           >
             <VscChromeClose className="text-2xl" />
           </button>
         </div>
       </div>
-      <div className="flex-1 flex">
-        <div data-tauri-drag-region className="flex">
-          <Menu onChange={onChangeTitle} />
-        </div>
+      <div className="flex-1 flex overflow-hidden" id="parent-container">
+        <Menu onChange={onChangeTitle} />
+
         <div className="flex-1 bg-base-300 border-1 border-base-300">
           {children}
         </div>
