@@ -15,6 +15,8 @@
     "core:default",
     "core:app:allow-default-window-icon",
     "fs:default",
+    "notification:default",
+    "notification:allow-request-permission",
     {
       "identifier": "fs:allow-app-read-recursive",
       "allow": [

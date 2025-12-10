@@ -4,13 +4,19 @@
     "en": "English"
   },
   "app_name": "Truss",
-  "app_desc": "Truss tauri App",
+  "app_desc": "Truss tauri App Template",
   "corp_name": "Truss Web",
   "copyright": "Copyright",
   "menu": {
     "home": "Home",
     "translation": "Translation",
-    "setting": "Setting"
+    "setting": "Setting",
+    "help": "help"
+  },
+  "tray": {
+    "show": "Show",
+    "hide": "Hide",
+    "quit": "Quit"
   },
   "setting": {
     "general": "Generatl Settings",

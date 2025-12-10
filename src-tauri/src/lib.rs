@@ -133,6 +133,7 @@ async fn run_exe(exe_path: String, args: Vec<String>) -> Result<String, InvokeEr
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
         .invoke_handler(tauri::generate_handler![make_request, run_exe]) // 注册命令
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())

@@ -28,7 +28,7 @@ export default function About() {
   const onGitHub = async (e: any) => {
     e.preventDefault();
     try {
-      await open("https://github.com/mortise-and-tenon/Dowel");
+      await open("https://github.com/mortise-and-tenon/truss-tauri");
     } catch (error) {
       console.error("open url fail:", error);
     }
@@ -41,7 +41,7 @@ export default function About() {
   const onRelease = async (e: any) => {
     e.preventDefault();
     try {
-      await open("https://dowel.mortnon.tech/docs/releases");
+      await open("https://truss.mortnon.tech");
     } catch (error) {
       console.error("open url fail:", error);
     }
@@ -54,7 +54,7 @@ export default function About() {
   const onWebsite = async (e: any) => {
     e.preventDefault();
     try {
-      await open("https://dowel.mortnon.tech");
+      await open("https://truss.mortnon.tech");
     } catch (error) {
       console.error("open url fail:", error);
     }
@@ -101,7 +101,7 @@ export default function About() {
     setChecked(false);
     setNeedUpdate(false);
     setUpdateTip("");
-    const url = "https://dowel.mortnon.tech/releases/version.json";
+    const url = "https://truss.mortnon.tech/";
     const req: RequestOptions = {
       method: "GET",
       url: url,

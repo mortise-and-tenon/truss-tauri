@@ -4,12 +4,18 @@
     "en": "English"
   },
   "app_name": "Truss",
-  "app_desc": "Truss tauri 应用",
+  "app_desc": "Truss tauri 应用模板",
   "corp_name": "Truss Web",
   "copyright": "版权所有",
   "menu": {
     "home": "首页",
-    "setting": "设置"
+    "setting": "设置",
+    "help": "帮助"
+  },
+  "tray": {
+    "show": "显示",
+    "hide": "隐藏",
+    "quit": "退出"
   },
   "setting": {
     "general": "通用设置",

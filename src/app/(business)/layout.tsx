@@ -10,7 +10,6 @@ import {
 } from "react-icons/vsc";
 import Menu from "../components/Menu";
 import ThemeChanger from "../components/ThemeSwitcher";
-import "../globals.css";
 import { GlobalContext } from "../utils/providers/GlobalProvider";
 
 export default function HomeLayout({

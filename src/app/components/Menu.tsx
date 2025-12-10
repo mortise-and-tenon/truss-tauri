@@ -1,14 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MdOutlineHome, MdOutlineSettings } from "react-icons/md";
+import {
+  MdOutlineHelpOutline,
+  MdOutlineHome,
+  MdOutlineSettings,
+  MdOutlineTranslate,
+} from "react-icons/md";
+import { open } from "@tauri-apps/plugin-shell";
 
 /**
  * 菜单定义
  */
-export type MenuData = {
+type MenuData = {
   /**
    * 菜单名称，用于区分菜单
    */
@@ -28,6 +34,11 @@ export type MenuData = {
    * 菜单跳转链接
    */
   link: string;
+
+  /**
+   * 是否外链
+   */
+  extra?: boolean;
 };
 
 /**
@@ -52,6 +63,13 @@ const extraMenuDatas: MenuData[] = [
     i18nName: "menu.setting",
     link: "/setting",
   },
+  {
+    name: "help",
+    icon: <MdOutlineHelpOutline className="text-2xl" />,
+    i18nName: "menu.help",
+    link: "https://truss.mortnon.tech",
+    extra: true,
+  },
 ];
 
 /**
@@ -67,6 +85,24 @@ export default function Menu({
   const router = useRouter();
 
   const { t } = useTranslation();
+
+  const path = usePathname();
+
+  useEffect(() => {
+    const menu = menuDatas.find((item) => item.link === path);
+    if (menu) {
+      setFocusExtraMenu("");
+      setFocusMenu(menu?.name);
+      onChange(menu.i18nName);
+    }
+
+    const extraMenu = extraMenuDatas.find((item) => item.link === path);
+    if (extraMenu) {
+      setFocusMenu("");
+      setFocusExtraMenu(extraMenu.name);
+      onChange(extraMenu.i18nName);
+    }
+  }, [path]);
 
   /**
    * 选中的菜单
@@ -95,21 +131,33 @@ export default function Menu({
    * 扩展菜单选择，与菜单互斥
    * @param name
    */
-  const onExtraMenuSelected = (
+  const onExtraMenuSelected = async (
     name: string,
     i18nName: string,
-    link: string
+    link: string,
+    extra: boolean
   ) => {
-    if (focusMenu != "") {
-      setFocusMenu("");
+    if (extra) {
+      try {
+        await open(link);
+      } catch (error) {
+        console.error("open url fail:", error);
+      }
+    } else {
+      if (focusMenu != "") {
+        setFocusMenu("");
+      }
+      setFocusExtraMenu(name);
+      onChange(i18nName);
+      router.push(link);
     }
-    setFocusExtraMenu(name);
-    onChange(i18nName);
-    router.push(link);
   };
 
   return (
-    <div className="bg-base-200 flex flex-col justify-between">
+    <div
+      data-tauri-drag-region
+      className="bg-base-200 flex flex-col justify-between"
+    >
       <ul className="menu menu-xs">
         {menuDatas.map((item) => (
           <li
@@ -131,7 +179,12 @@ export default function Menu({
         {extraMenuDatas.map((item) => (
           <li
             onClick={() =>
-              onExtraMenuSelected(item.name, item.i18nName, item.link)
+              onExtraMenuSelected(
+                item.name,
+                item.i18nName,
+                item.link,
+                item.extra ? item.extra : false
+              )
             }
             key={item.name}
           >

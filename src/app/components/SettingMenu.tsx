@@ -41,6 +41,9 @@ export default function SettingMenu({
 
   const searchParams = useSearchParams();
 
+  /**
+   * 如果是其他页面跳转的，可以由参数 menu 决定选中的子菜单
+   */
   useEffect(() => {
     const menuName = searchParams.get("menu");
     if (menuName) {
